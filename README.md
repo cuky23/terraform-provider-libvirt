@@ -81,13 +81,16 @@ Run `go install` to build the binary. You will now find the binary at
 
 ## Running acceptance tests
 
-You need to define the LIBVIRT_DEFAULT_URI and TF_ACC variables:
+You need to define the LIBVIRT_DEFAULT_URI, TF_ACC and TF_SKIP_QEMU_AGENT
+variables:
 
 ```console
 export LIBVIRT_DEFAULT_URI=qemu:///system
 export TF_ACC=1
+export TF_SKIP_QEMU_AGENT=1
 go test ./...
 ```
+
 
 ## Known Problems
 

@@ -9,6 +9,17 @@ sudo sed -i 's/LXD_IPV4_NETWORK=".*"/LXD_IPV4_NETWORK="192.168.123.0\/24"/' /etc
 sudo sed -i 's/LXD_IPV4_DHCP_RANGE=".*"/LXD_IPV4_DHCP_RANGE="192.168.123.2,192.168.123.12"/' /etc/default/lxd-bridge
 sudo sed -i 's/LXD_IPV4_DHCP_MAX=".*"/LXD_IPV4_DHCP_MAX="10"/' /etc/default/lxd-bridge
 
+cat<<EOF>/etc/libvirtd.conf
+# libvirtd configuration for travis-ci
+listen_tls = 0
+listen_tcp = 1
+tcp_port = "16509"
+listen_addr = "127.0.0.1"
+auth_unix_rw = "none"
+auth_tcp = "none"
+EOF
+
+sudo service libvirtd restart
 sudo service lxd restart
 
 sudo lxc launch ubuntu:zesty libvirt -c security.privileged=true
